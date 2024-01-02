@@ -1,0 +1,36 @@
+{
+    "name": "Docker from Docker Compose",
+    "dockerComposeFile": "docker-compose.yml",
+    "service": "app",
+    "workspaceFolder": "/workspaces/ferro13}",
+
+    // Use this environment variable if you need to bind mount your local source code into a new container.
+
+    "features": {
+            "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {
+                    "version": "latest",
+                    "enableNonRootDocker": "true",
+                    "moby": "true"
+            },
+    "ghcr.io/devcontainers/features/node:1": {},
+    "ghcr.io/devcontainers-contrib/features/angular-cli:2": {}
+},
+"remoteEnv":{
+    "DIR1": "/workspaces/Forbici/app-ferro13/frontend/",
+    "DIR2": "/workspaces/Forbici/app-ferro13/backend/"
+},
+
+// Configure tool-specific properties.
+// "customizations": {},
+
+// Use 'forwardPorts' to make a list of ports inside the container available locally.
+"forwardPorts": [
+    8080
+],
+
+// Use 'postCreateCommand' to run commands after the container is created.
+"postCreateCommand": "bash .devcontainer/script.sh"
+
+    // Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+    // "remoteUser": "root"
+}
