@@ -29,16 +29,15 @@ DB_HOST = os.environ.get('DB_HOST')
 DB_PORT = os.environ.get('DB_PORT')
 DB_NAME = os.environ.get('DB_NAME')
 DB_PROTOCOL = os.environ.get ('DB_PROTOCOL')
-
-''' The syntax for the DB_URI connection string is :
+''' La Sinstassi per la stringa di connessione al db è :
 DB_URI = protocol://username:password@host:port/database'''
+
 DB_URI = f'{DB_PROTOCOL}://{DB_USERNAME}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}'
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = DB_URI
 
 db = SQLAlchemy(app)
-
 # Create the class for the table task
 class Task(db.Model):
     __tablename__ = 'tasks'
@@ -48,7 +47,6 @@ class Task(db.Model):
     description = db.Column(db.String(200), nullable=False)
     data = db.Column(db.DateTime, default=datetime.utcnow)
     status = db.Column(db.String(15), default='To Do', nullable=False)
-
 # Check and create the table task and populate it with the first example task 
 with app.app_context():
     db.create_all()
@@ -60,9 +58,9 @@ with app.app_context():
         task1 = Task(name='Task 1', description='this is an-example task , you can write the specifics of your task here')
         db.session.add(task1)
         db.session.commit()
-
 ''' Define the '/' route , basically when a user go to 127.0.0.1:8080/ the application use a function and 
- returns the task's list an the links to other routes'''      
+ returns the task's list an the links to other routes'''
+        
 @app.route('/')
 def showList():
     todo_tasks = Task.query.filter_by(status='To Do').all()
@@ -71,6 +69,7 @@ def showList():
     return render_template('./show_list.html', todo_tasks=todo_tasks, in_progress_tasks=in_progress_tasks, done_tasks=done_tasks) 
 
 # define the '/insert' route
+
 @app.route('/insert', methods=['GET', 'POST'])
 def insert_task():
     if request.method == 'POST':
@@ -84,6 +83,7 @@ def insert_task():
     return render_template('insert_task.html')
 
 # define the '/advance' route
+
 @app.route('/advance', methods=['GET','POST'])
 def advance_task():
     if request.method == 'POST':
@@ -102,6 +102,6 @@ def advance_task():
     else:
         return render_template('advance.html')
         
-# start the application and expose on port 8080
+
 if __name__ == '__main__':
     app.run(port=8080)

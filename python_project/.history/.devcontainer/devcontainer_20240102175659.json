@@ -9,26 +9,26 @@
 	// Use this environment variable if you need to bind mount your local source code into a new container.
 
 	"features": {
-		"ghcr.io/devcontainers/features/docker-outside-of-docker:1": {
-			"version": "latest",
-			"enableNonRootDocker": "true",
-			"moby": "true"
-		},
-        "": {}
-    },
+			"ghcr.io/devcontainers/features/docker-outside-of-docker:1": {
+					"version": "latest",
+					"enableNonRootDocker": "true",
+					"moby": "true"
+			}
+},
+"remoteEnv":{
+},
 
+// Configure tool-specific properties.
+// "customizations": {},
 
-    // Configure tool-specific properties.
-    // "customizations": {},
+// Use 'forwardPorts' to make a list of ports inside the container available locally.
+"forwardPorts": [
+	8080
+],
 
-    // Use 'forwardPorts' to make a list of ports inside the container available locally.
-    "forwardPorts": [
-        8080
-    ],
+// Use 'postCreateCommand' to run commands after the container is created.
+"postCreateCommand": ""
 
-    // Use 'postCreateCommand' to run commands after the container is created.
-    "postCreateCommand": "bash .devcontainer/script.sh"
-    
 	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
 	// "remoteUser": "root"
 }

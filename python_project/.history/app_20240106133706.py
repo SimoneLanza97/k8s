@@ -15,12 +15,10 @@ export DB_PORT="5432"
 export DB_NAME="db_app1"
 export DB_PROTOCOL="postgresql+psycopg2"
 ''')
-
 # Source of .bashrc in a variable
-bashrc_command = "bash root/.bashrc"
+bashrc_command = "source root/.bashrc"
 # exec the command
 subprocess.run(bashrc_command, shell=True)
-
 
 #Setting variables for db connection
 DB_USERNAME = os.environ.get('DB_USERNAME')
@@ -29,9 +27,9 @@ DB_HOST = os.environ.get('DB_HOST')
 DB_PORT = os.environ.get('DB_PORT')
 DB_NAME = os.environ.get('DB_NAME')
 DB_PROTOCOL = os.environ.get ('DB_PROTOCOL')
-
-''' The syntax for the DB_URI connection string is :
+''' La Sinstassi per la stringa di connessione al db è :
 DB_URI = protocol://username:password@host:port/database'''
+
 DB_URI = f'{DB_PROTOCOL}://{DB_USERNAME}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}'
 
 app = Flask(__name__)
@@ -39,7 +37,6 @@ app.config['SQLALCHEMY_DATABASE_URI'] = DB_URI
 
 db = SQLAlchemy(app)
 
-# Create the class for the table task
 class Task(db.Model):
     __tablename__ = 'tasks'
 
@@ -49,7 +46,6 @@ class Task(db.Model):
     data = db.Column(db.DateTime, default=datetime.utcnow)
     status = db.Column(db.String(15), default='To Do', nullable=False)
 
-# Check and create the table task and populate it with the first example task 
 with app.app_context():
     db.create_all()
     
@@ -61,8 +57,6 @@ with app.app_context():
         db.session.add(task1)
         db.session.commit()
 
-''' Define the '/' route , basically when a user go to 127.0.0.1:8080/ the application use a function and 
- returns the task's list an the links to other routes'''      
 @app.route('/')
 def showList():
     todo_tasks = Task.query.filter_by(status='To Do').all()
@@ -70,7 +64,6 @@ def showList():
     done_tasks = Task.query.filter_by(status='Done').all()
     return render_template('./show_list.html', todo_tasks=todo_tasks, in_progress_tasks=in_progress_tasks, done_tasks=done_tasks) 
 
-# define the '/insert' route
 @app.route('/insert', methods=['GET', 'POST'])
 def insert_task():
     if request.method == 'POST':
@@ -83,25 +76,22 @@ def insert_task():
         return redirect(url_for('showList'))
     return render_template('insert_task.html')
 
-# define the '/advance' route
-@app.route('/advance', methods=['GET','POST'])
+@app.route('/advance', method=['GET','POST'])
 def advance_task():
-    if request.method == 'POST':
-        task_name = request.form['task_name']
-        selected_task = Task.query.filter_by(name=task_name).first()
-        if selected_task:
-            if selected_task.status == 'To Do':
-                selected_task.status = 'In Progress'
-            elif selected_task.status == 'In Progress':
-                selected_task.status = 'Done'
-            db.session.commit()
-            return redirect(url_for('showList'))
-        else:
-           error_message = f"Nessun elemento trovato con il nome '{task_name}'"
-           return render_template('error.html', error_message=error_message)
+    task_name = request.form['task_name']
+    selected_task = Task.query.filter_by(name=task_name).first()
+    if selected_task:
+        if selected_task.status == 'To Do':
+            selected_task.status = 'In Progress'
+        elif selected_task.status == 'In Progress':
+            selected_task.status = 'Done'
+        db.session.commit()
+        return redirect(url_for('showList'))
     else:
-        return render_template('advance.html')
+       error_message = f"Nessun elemento trovato con il nome '{task_name}'"
+       return render_template('template.html', error_message=error_message)
+
         
-# start the application and expose on port 8080
+
 if __name__ == '__main__':
     app.run(port=8080)

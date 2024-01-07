@@ -1,0 +1,25 @@
+<!-- advance.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advance Task</title>
+</head>
+<body>
+    <h1>Advance Task</h1>
+
+    <form method="post" action="{{ url_for('advance_task') }}">
+        <label for="task_name">Inserisci il nome dell'attività:</label>
+        <input type="text" id="task_name" name="task_name" required>
+        <button type="submit">Avanza Status</button>
+    </form>
+
+    {% if error_message %}
+        <p style="color: red;">{{ error_message }}</p>
+    {% endif %}
+
+    <!-- Puoi aggiungere qui ulteriori contenuti o informazioni se necessario -->
+</body>
+</html>
