@@ -1,0 +1,27 @@
+# DEVELOP A DOCKER IMAGE FOR YOUR APPLICATION 
+In this directory we will create our private docker registry and our custom docker image , after which we will upload it to the private registry for later use with Minikube.
+
+## CREATE THE REGISTRY
+To create a private registry we will use docker's image registry , which allows us to have a container containing within it an image registry that will be available only to us, so that we can upload our custom images into it without them being accessible to anyone. 
+Use the following command to pull the docker image: 
+        
+        docker pull registry:latest
+
+And use this command to run it (the command run a container named registry , based on registry image , and forward the guest's port 5000 with the host port 5000):
+
+        docker run -d -p 5000:5000 --name registry registry:latest
+
+Now, if you use the command :
+
+        docker ps 
+
+You will see :
+
+        CONTAINER ID   IMAGE             COMMAND                  CREATED         STATUS         PORTS                                       NAMES
+2ed10fb78b47   registry:latest   "/entrypoint.sh /etc…"   4 seconds ago   Up 3 seconds   0.0.0.0:5000->5000/tcp, :::5000->5000/tcp   registry
+
+## NOW WE NEED TO CREATE OUR CUSTOM IMAGE 
+We need to create a Dockerfile where we put our application and we can use docekr compose to test if the image is builded in the right way.
+We also put our app.py , templates/ and static/ in a directory that we will name "application/" , we need to copy this directory inside the docker image to use it as our working directory. 
+
+We will use docker-compose to test the image because we need a database to let the app run correctly.
