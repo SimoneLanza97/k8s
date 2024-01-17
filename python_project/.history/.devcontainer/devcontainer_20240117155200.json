@@ -16,12 +16,6 @@
 			}
 },
 "remoteEnv":{
-	"DB_USERNAME": "root",
-	"DB_PASSWORD": "password",
-	"DB_HOST": "db",
-	"DB_PORT": "5432",
-	"DB_NAME": "db_app1",
-	"DB_PROTOCOL": "postgresql+psycopg2"
 },
 
 // Configure tool-specific properties.

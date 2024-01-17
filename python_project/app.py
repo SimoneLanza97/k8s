@@ -4,24 +4,6 @@ from datetime import datetime
 import os 
 import subprocess
 
-# setting ENV variables (temporary)
-
-with open('/root/.bashrc', 'a') as file:
-    file.write('''
-export DB_USERNAME="root"
-export DB_PASSWORD="password"
-export DB_HOST="db"
-export DB_PORT="5432"
-export DB_NAME="db_app1"
-export DB_PROTOCOL="postgresql+psycopg2"
-''')
-
-# Source of .bashrc in a variable
-bashrc_command = "bash root/.bashrc"
-# exec the command
-subprocess.run(bashrc_command, shell=True)
-
-
 #Setting variables for db connection
 DB_USERNAME = os.environ.get('DB_USERNAME')
 DB_PASSWORD = os.environ.get('DB_PASSWORD')
@@ -104,4 +86,4 @@ def advance_task():
         
 # start the application and expose on port 8080
 if __name__ == '__main__':
-    app.run(port=8080)
+    app.run(port=8080,debug=False)
