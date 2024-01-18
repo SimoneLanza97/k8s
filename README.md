@@ -1,63 +1,76 @@
-# Architettura di Kubernetes
+# LEARN K8S DEPLOYING AN APPLICATION WITH MINIKUBE
 
-L'architettura di Kubernetes è progettata per orchestrare e gestire container su un cluster di macchine. Ecco un'analisi dettagliata dell'architettura di Kubernetes:
+In this repository, we will try to understand the functioning of Kubernetes using Minikube, a lightweight version of Kubernetes that allows us to run a Kubernetes cluster on a single node containing both the master and manager nodes of the Kubernetes cluster.
 
-## 1. Cluster Kubernetes
+Specifically, we will cover the entire process typically followed for developing an application with Kubernetes, starting from the creation of a simple app to the creation of a custom Docker image, and finally deploying it with Minikube.
 
-- Il cluster Kubernetes è l'infrastruttura complessiva composta da un set di nodi che eseguono i servizi Kubernetes.
-- Un cluster Kubernetes è composto da almeno un nodo master e uno o più nodi worker.
+The journey we will undertake is divided into folders within the repository, as follows:
 
-## 2. Nodo Master
+    python_project   --> In this directory, we will develop a simple web app with Python using devcontainers.
 
-- Il nodo master è responsabile della gestione e del controllo globale del cluster.
-- Componenti principali sul nodo master:
-  - **API Server:** Fornisce l'interfaccia RESTful per interagire con il cluster.
-  - **Scheduler:** Assegna i task (pods) ai nodi in base alle risorse disponibili e ai vincoli definiti.
-  - **Controller Manager:** Gestisce i controller che regolano lo stato desiderato del sistema.
-  - **etcd:** Archivia lo stato del cluster in un datastore distribuito altamente affidabile.
+    docker_container --> Creating a Docker image for the app, testing, and pushing it to a private registry.
 
-## 3. Nodi Worker
+    minikube         --> Deploying the application with Minikube.
 
-- I nodi worker eseguono i container e forniscono le risorse computazionali e di rete necessarie.
-- Componenti principali su ogni nodo worker:
-  - **Kubelet:** Agisce come agente su ogni nodo, garantendo che i container siano in uno stato di esecuzione.
-  - **Kube-proxy:** Gestisce la rete del cluster, inoltrando il traffico di rete ai container corretti.
-  - **Container Runtime:** Il software responsabile dell'esecuzione dei container (es. Docker, containerd).
+## Kubernetes Architecture
+
+The architecture of Kubernetes is designed to orchestrate and manage containers across a cluster of machines. Here is a detailed analysis of the Kubernetes architecture:
+
+## 1. Kubernetes Cluster
+
+- The Kubernetes cluster is the overall infrastructure composed of a set of nodes running Kubernetes services.
+- A Kubernetes cluster consists of at least one master node and one or more worker nodes.
+
+## 2. Master Node
+
+- The master node is responsible for the overall management and control of the cluster.
+- Key components on the master node include:
+  - **API Server:** Provides a RESTful interface for interacting with the cluster.
+  - **Scheduler:** Assigns tasks (pods) to nodes based on available resources and defined constraints.
+  - **Controller Manager:** Manages controllers that regulate the desired state of the system.
+  - **etcd:** Stores the cluster state in a highly reliable distributed datastore.
+
+## 3. Worker Nodes
+
+- Worker nodes run containers and provide the necessary computational and network resources.
+- Key components on each worker node include:
+  - **Kubelet:** Acts as an agent on each node, ensuring containers are in a running state.
+  - **Kube-proxy:** Manages the cluster network, forwarding network traffic to the correct containers.
+  - **Container Runtime:** Software responsible for running containers (e.g., Docker, containerd).
 
 ## 4. Pods
 
-- Il pod è la più piccola unità deployabile in Kubernetes.
-- Un pod può contenere uno o più container condividendo lo stesso namespace di rete e lo stesso storage.
-- I container all'interno di un pod possono comunicare tra loro attraverso localhost.
+- The pod is the smallest deployable unit in Kubernetes.
+- A pod can contain one or more containers sharing the same network namespace and storage.
+- Containers within a pod can communicate with each other through localhost.
 
-## 5. Controller
+## 5. Controllers
 
-- I controller in Kubernetes mantengono il numero desiderato di repliche di un'applicazione in esecuzione.
-- Tipi comuni di controller includono il ReplicaSet e il Deployment.
+- Controllers in Kubernetes maintain the desired number of replicas of an application running.
+- Common types of controllers include ReplicaSet and Deployment.
 
-## 6. Servizi
+## 6. Services
 
-- I servizi forniscono un modo persistente per esporre l'applicazione, indipendentemente dal numero di repliche dei pod sottostanti.
-- Tipi di servizi includono ClusterIP, NodePort e LoadBalancer.
+- Services provide a persistent way to expose the application, regardless of the number of replicas of the underlying pods.
+- Service types include ClusterIP, NodePort, and LoadBalancer.
 
-## 7. ConfigMap e Secrets
+## 7. ConfigMap and Secrets
 
-- ConfigMap e Secrets sono risorse in Kubernetes utilizzate per gestire configurazioni e dati sensibili rispettivamente.
+- ConfigMap and Secrets are Kubernetes resources used to manage configurations and sensitive data, respectively.
 
 ## 8. Namespace
 
-- I namespace consentono di creare partizioni virtuali all'interno di un cluster Kubernetes.
-- Consentono di isolare risorse, utenti e applicazioni all'interno dello stesso cluster.
+- Namespaces allow the creation of virtual partitions within a Kubernetes cluster.
+- They enable the isolation of resources, users, and applications within the same cluster.
 
 ## 9. Storage
 
-- Kubernetes supporta il provisioning e la gestione di volumi di storage per i container.
-- PersistentVolume (PV) e PersistentVolumeClaim (PVC) sono risorse utilizzate per gestire la persistenza dei dati.
+- Kubernetes supports provisioning and management of storage volumes for containers.
+- PersistentVolume (PV) and PersistentVolumeClaim (PVC) are resources used to manage data persistence.
 
-## 10. Addon e Custom Resources
+## 10. Addons and Custom Resources
 
-- Kubernetes supporta addon come Dashboard, DNS, e ingress controller per estendere la funzionalità del cluster.
-- È possibile definire risorse personalizzate (Custom Resource Definitions - CRD) per estendere il modello di oggetti Kubernetes.
+- Kubernetes supports addons like Dashboard, DNS, and ingress controller to extend cluster functionality.
+- Custom Resource Definitions (CRD) can be defined to extend the Kubernetes object model.
 
-In generale, Kubernetes fornisce un'architettura flessibile e modulare che consente la gestione distribuita di applicazioni containerizzate, semplificando la scalabilità, la gestione delle risorse e la distribuzione delle applicazioni in ambienti di produzione.
-
+In general, Kubernetes provides a flexible and modular architecture enabling distributed management of containerized applications, simplifying scalability, resource management, and application deployment in production environments.
