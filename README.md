@@ -12,6 +12,8 @@ The journey we will undertake is divided into folders within the repository, as 
 
 ## Kubernetes Architecture
 
+![Basic diagram of the Kubernetes node architecture.](KubernetesArchitecture.drawio.png)
+
 The architecture of Kubernetes is designed to orchestrate and manage containers across a cluster of machines. Here is a detailed analysis of the Kubernetes architecture:
 
 ## 1. Kubernetes Cluster
