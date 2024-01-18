@@ -1,0 +1,8 @@
+FROM python:3.9.18-bullseye
+RUN useradd -ms /bin/bash pyuser
+WORKDIR /app
+COPY ./application /app
+RUN chown pyuser:pyuser /app
+RUN pip install -r requirements.txt 
+USER pyuser 
+ENTRYPOINT ["uwsgi", "--ini", "uwsgi.ini"]

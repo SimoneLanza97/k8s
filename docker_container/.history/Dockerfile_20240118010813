@@ -4,8 +4,6 @@ RUN adduser -D pyuser
 # Select the work directory and copy the host's directory inside it  
 WORKDIR /app
 COPY ./application /app
-# declare the port you expose by default
-EXPOSE 8080
 # Give permission
 RUN chown -R pyuser:pyuser /app
 # Use pip to install the needed packages 
