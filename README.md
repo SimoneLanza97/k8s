@@ -1,4 +1,4 @@
-# LEARN K8S DEPLOYING AN APPLICATION WITH MINIKUBE
+# LEARN K8S BY DEPLOYING AN APPLICATION WITH MINIKUBE
 
 In this repository, we will try to understand the functioning of Kubernetes using Minikube, a lightweight version of Kubernetes that allows us to run a Kubernetes cluster on a single node containing both the master and manager nodes of the Kubernetes cluster.
 
