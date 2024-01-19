@@ -7,11 +7,12 @@ COPY ./application /app
 # declare the port you expose by default
 EXPOSE 8080
 # Give permission
-RUN chown -R pyuser:pyuser /app
+RUN chown -R pyuser:pyuser /app && chmod +x script.sh
 # Use pip to install the needed packages 
 RUN apk add --no-cache build-base linux-headers \ 
 && pip install --upgrade pip \
 && pip install -r requirements.txt  
 # Select the default user and give the entrypoint for the container 
 USER pyuser 
-ENTRYPOINT ["uwsgi", "--ini", "uwsgi.ini"]
+CMD ["/app/script.sh"]
+#CMD ["uwsgi", "--ini", "uwsgi.ini"]
