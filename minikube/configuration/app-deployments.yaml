@@ -1,0 +1,77 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: todolist
+  labels: 
+    app: todolist
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: todolist
+  template:
+    metadata:
+      labels: 
+        app: todolist
+    spec:
+      containers:
+      - name: todolist-container
+        image: localhost:5000/py_app:1.1
+        env:
+        - name: DB_USERNAME
+          value: root
+        - name: DB_PASSWORD
+          value: password
+        - name: DB_HOST
+          value: db
+        - name: DB_PORT
+          value: "5432"
+        - name: DB_NAME
+          value: db_app1
+        - name: DB_PROTOCOL
+          value: postgresql+psycopg2
+        ports:
+        - containerPort: 8080
+        resources:
+          limits:
+            cpu: "0.5"  
+            memory: "512Mi" 
+          requests:
+            cpu: "0.2"  
+            memory: "256Mi"  
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgresdeployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres-db
+  template:
+    metadata:
+      labels:
+        app: postgres-db
+    spec:
+      containers:
+      - name: postgres-container
+        image: postgres:latest
+        env:
+        - name: POSTGRES_DB
+          value: db_app1
+        - name: POSTGRES_USER
+          value: root
+        - name: POSTGRES_PASSWORD
+          value: password
+        - name: POSTGRES_PORT
+          value: "5432"
+        ports:
+        - containerPort: 5432
+        resources:
+          limits:
+            cpu: "0.5"
+            memory: "512Mi"
+          requests:
+            cpu: "0.2"
+            memory: "256Mi"

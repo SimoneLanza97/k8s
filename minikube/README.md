@@ -1,21 +1,17 @@
 # MINIKUBE
 
-Minikube è una soluzione light di k8s , permette di avere un ambiente kubernetes per il test locale senza l'utilizzo di più macchine.
-La soluzione minikube racchiude nodo worker e manager nella stessa macchina, un container docker, questo ci permette di avere un cluster k8s leggero e veloce, 
-ottimo per imparare le basi di kubernetes.
+Minikube is a lightweight solution for Kubernetes that allows you to have a local testing environment without the need for multiple machines. The Minikube solution combines the worker and manager nodes within the same machine, encapsulated in a Docker container. This enables us to have a lightweight and fast Kubernetes cluster, making it ideal for learning the basics of Kubernetes.
 
-## COME INSTALLARE MINIKUBE
+## HOW TO INSTALL MINIKUBE
+
 curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
 sudo install minikube-linux-amd64 /usr/local/bin/minikube
 
-## COME AVVIARE IL CLUSTER
-Per avviare il cluster minikube, usare il comando "minikube start" 
+## HOW TO START THE CLUSTER
 
-Nota bene: normalmente dovremmo avviare un cluster partendo dal nodo manager per poi usare il token per l' aggiunta degli altri nodi e una volta completato il processo avremmo il nostro cluster attivo, tutto questo in minikube non serve perchè è una soluzione ad un unico nodo.
+To start the Minikube cluster, use the command minikube start.
 
-## INTERAZIONE CON IL CLUSTER LIVELLO BASE
+Note: Typically, you would start a cluster by initializing it from the manager node and then using the token for adding other nodes. In Minikube, this process is not necessary as it is a single-node solution.    
 
-VISUALIZZARE I NODI PRESENTI NEL CLUSTER 
-    kubectl get nodes
 
 
