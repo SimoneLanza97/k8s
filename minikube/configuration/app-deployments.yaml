@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: todolist-container
-        image: localhost:5000/py_app:1.1
+        image: dockersimon97/py_app:0.1
         env:
         - name: DB_USERNAME
           value: root
