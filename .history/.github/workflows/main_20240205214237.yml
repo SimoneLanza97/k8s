@@ -1,9 +1,6 @@
 name: update python app
-run-name: ${{ github.actor }} update the code
-on:
-  push:
-    branches:
-      - main
+run-name: ${{ github.actor }} update the code 
+on: [push]
 jobs:
   update-code:
     runs-on: ubuntu:latest
