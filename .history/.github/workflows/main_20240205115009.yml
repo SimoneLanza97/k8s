@@ -4,6 +4,9 @@ on: [push]
 jobs:
   update-code:
     runs-on: ubuntu:latest
+    container:
+      image: docker:latest
+      options: --privileged
     
     steps:
       - name: Set version

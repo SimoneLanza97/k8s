@@ -1,0 +1,20 @@
+<!-- delete_task.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Task</title>
+</head>
+<body>
+    <h1>Delete Task</h1>
+    <form action="/delete" method="post">
+        <label for="task_name">Task Name:</label>
+        <input type="text" id="task_name" name="task_name" required>
+        <button type="submit">Delete Task</button>
+    </form>
+    <br>
+    <a href="{{ url_for('showList') }}">Back to Task List</a>
+</body>
+</html>
