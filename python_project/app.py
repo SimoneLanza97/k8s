@@ -84,6 +84,22 @@ def advance_task():
     else:
         return render_template('advance.html')
         
+@app.route('/delete', methods=['GET','POST'])
+def delete_task():
+    if request.method == 'POST':
+        task_name = request.form['task_name']
+        task_to_delete = Task.query.filter_by(name=task_name).first()
+
+        if task_to_delete:
+            db.session.delete(task_to_delete)
+            db.session.commit()
+            return redirect(url_for('showList'))
+        else:
+            error_message = f"Nessun elemento trovato con il nome '{task_name}'"
+            return render_template('error.html', error_message=error_message)
+    else:
+        return render_template('delete.html')
+
 # start the application and expose on port 8080
 if __name__ == '__main__':
     app.run(port=8080,debug=False)
