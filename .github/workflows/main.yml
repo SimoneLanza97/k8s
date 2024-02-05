@@ -1,0 +1,35 @@
+name: update python app
+run-name: ${{ github.actor }} update the code 
+on: [push]
+jobs:
+  update-code:
+    runs-on: ubuntu:latest
+    container:
+      image: docker:latest
+      options: --privileged
+    
+    steps:
+      - name: Set version
+        id: set_version
+        run: echo "::set-output name=version::0"    
+      
+      - name: copy the code 
+        run: |
+            cp -r python_project/static/ python_project/templates/ python_project/app.py python_project/requirements.txt python_project/uwsgi.ini docker_container/application/
+        working-directory: ${{ github.workspace }}
+      
+      - name: build new image
+        run: |
+            cd ./docker_container 
+                      version=$((steps.set_version.outputs.version + 1)) 
+                      && docker build -t py_app:${version} .
+                      echo "::set-output name=version::${version}"
+      
+      - name: test image
+        run: docker run --rm  py_app:${version} --name test:${version}
+
+      - name: Login to Docker Hub
+        run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Push image to Docker Hub
+        run: docker push ${{ secrets.DOCKER_USERNAME }}/py_app:${version}
