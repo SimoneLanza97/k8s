@@ -37,8 +37,6 @@ jobs:
     needs: copy_code
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-
       - name: Build new image
         run: |
           cd ./docker_container 
@@ -48,8 +46,6 @@ jobs:
     needs: build_image
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-
       - name: Test image
         run: docker run --rm py_app:${{ needs.set_version.outputs.set-version }} --name test:${{ needs.set_version.outputs.set-version }}
 
@@ -57,8 +53,6 @@ jobs:
     needs: test_image
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-
       - name: Login to Docker Hub
         run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
 
